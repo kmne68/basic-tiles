@@ -29,6 +29,7 @@ public class Game extends Canvas implements KeyListener {
      * Simple tile-based collision detection
      */
     
+    private Image sprite;
     private Image playerSprite;
     private Image monsterSprite;
     private BufferStrategy bufferStrategy;
@@ -48,8 +49,10 @@ public class Game extends Canvas implements KeyListener {
     
     public Game() {
         
+        monsterSprite = spriteLoader("monster");
+        playerSprite = spriteLoader("sprite");
         // load monster sprite
-        try {
+/*      try {
             URL url = Thread.currentThread().getContextClassLoader().getResource("monster.png");
             if(url == null) {
                 System.err.println("Unable to find sprite.");
@@ -74,7 +77,7 @@ public class Game extends Canvas implements KeyListener {
             System.err.println("Unable to load sprite");
             System.exit(0);
         }
-    
+    */
     
         // Create the frame that holds the game
         Frame frame = new Frame("Tile Map");
@@ -232,6 +235,23 @@ public class Game extends Canvas implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_UP) {
             up = false;
         }
+    }
+    
+    
+    public Image spriteLoader(String type) {
+        try {
+            URL url = Thread.currentThread().getContextClassLoader().getResource(type + ".png");
+            if (url == null) {
+                System.err.println("Unable to find sprite.");
+                System.exit(0);
+            }
+            sprite = ImageIO.read(url);
+            System.out.println("monster loaded" + url.toString());
+        } catch (IOException e) {
+            System.err.println("Unable to load sprite");
+            System.exit(0);
+        }
+        return sprite;
     }
 
 }
