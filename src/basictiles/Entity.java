@@ -39,12 +39,69 @@ public class Entity {
         this.playerY = y;
     }
 
-    void paint(Graphics2D g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+    /**
+     * 
+     * @param dx
+     * @param dy
+     * @return 
+     */
+    public boolean move(float dx, float dy) {
 
-    void move(double d, float f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        float newX = playerX + dx;
+        float newY = playerY + dy;
+        
+        // Collision?
+        if(validLocation(newX, newY)) {
+            // if not update location and calculate new facing angle
+            playerX = newX;
+            playerY = newY;
+            playerAngle = (float)(Math.atan2(dy, dx) - (Math.PI / 2));
+            return true;
+        }
+        // if invalid location
+        return false;
     }
     
+    /**
+     * 
+     * @param nX
+     * @param ny
+     * @return 
+     */
+    public boolean validLocation(float nX, float ny) {
+        
+        boolean result = false;
+        
+        if(map.blocked(nX - playerSize, ny - playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX + playerSize, ny - playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX - playerSize , ny + playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX + playerSize, ny + playerSize)) {
+            return false;
+        }
+        
+        // If we've made it to here, the way is clear               
+        return true;
+    }
+    
+    
+    
+    void paint(Graphics2D g) {
+
+        // calcualte proper position to paint the sprite
+        int xPaint = (int) (map.TILE_SIZE * playerX);
+        int yPaint = (int) (map.TILE_SIZE * playerY);
+        
+        // calculate proper facing angle for the sprite
+        g.rotate(playerAngle, xPaint, yPaint);
+        g.drawImage(spriteImage, (int) (xPaint -16), (int) (yPaint - 16), null);
+        g.rotate(-playerAngle, xPaint, yPaint);
+    }
+
 }

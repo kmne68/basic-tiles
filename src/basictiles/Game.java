@@ -47,7 +47,7 @@ public class Game extends Canvas implements KeyListener {
     public Game() {
         
         try {
-            URL url = Thread.currentThread().getContextClassLoader().getResource("res/sprite.gif");
+            URL url = Thread.currentThread().getContextClassLoader().getResource("sprite.png");
             if(url == null) {
                 System.err.println("Unable to find sprite.");
                 System.exit(0);
@@ -146,7 +146,7 @@ public class Game extends Canvas implements KeyListener {
      * @param e 
      */
     
-    public void logic(long delta) {
+    public void logic(float delta) {
         
         // move
         float dx = 0;
@@ -169,7 +169,7 @@ public class Game extends Canvas implements KeyListener {
         }
         
         if((dx != 0) || (dy != 0)) {
-            player.move(dx * delta * 0.003, dy * delta * 0.003f);
+            player.move(dx * delta * 0.003f, dy * delta * 0.003f);
         }
     }
     
