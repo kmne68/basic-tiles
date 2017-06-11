@@ -31,6 +31,7 @@ public class Entity {
      * @param x
      * @param y 
      */
+    
     Entity(Image image, Map map, float x, float y) {
         
         this.spriteImage = image;

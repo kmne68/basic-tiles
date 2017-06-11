@@ -30,6 +30,7 @@ public class Game extends Canvas implements KeyListener {
      */
     
     private Image playerSprite;
+    private Image monsterSprite;
     private BufferStrategy bufferStrategy;
     
     private boolean left;
@@ -38,7 +39,8 @@ public class Game extends Canvas implements KeyListener {
     private boolean down;
     
     private Map map;
-    private Entity player;
+    private PlayerEntity player;
+    private MonsterEntity monster;
     
     /**
      * Create game and begin game loop
@@ -46,6 +48,21 @@ public class Game extends Canvas implements KeyListener {
     
     public Game() {
         
+        // load monster sprite
+        try {
+            URL url = Thread.currentThread().getContextClassLoader().getResource("monster.png");
+            if(url == null) {
+                System.err.println("Unable to find sprite.");
+                System.exit(0);
+            }
+            monsterSprite = ImageIO.read(url);
+            System.out.println("monster loaded" + url.toString());
+        } catch (IOException e) {
+            System.err.println("Unable to load sprite");
+            System.exit(0);
+        }
+        
+        // load player sprite
         try {
             URL url = Thread.currentThread().getContextClassLoader().getResource("sprite.png");
             if(url == null) {
@@ -87,7 +104,8 @@ public class Game extends Canvas implements KeyListener {
         
         // Add game objects
         map = new Map();
-        player = new Entity(playerSprite, map, 1.5f, 1.5f);
+        monster = new MonsterEntity(monsterSprite, map, 1.5f, 1.5f);
+        player = new PlayerEntity(playerSprite, map, 5f, 5f);
         
         // Start game loop
         gameLoop();
@@ -113,6 +131,7 @@ public class Game extends Canvas implements KeyListener {
             g.translate(100, 100);
             map.paint(g);
             player.paint(g);
+            monster.paint(g);
             
             // flip buffer
             g.dispose();
