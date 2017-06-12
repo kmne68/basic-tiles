@@ -14,6 +14,7 @@ public class Object {
     int locationX;
     int locationY;
     String objectName;
+    int type; // natural resource, treasure, building, weapon, etc
     int objectID;
     
     

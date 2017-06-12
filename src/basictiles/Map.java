@@ -24,25 +24,25 @@ public class Map {
     
     private static final int CLEAR = 0;
     private static final int BLOCKED = 1;
-    private static final int TILE_WIDTH = 15;
-    private static final int TILE_HEIGHT = 15;   
-    public static final int TILE_SIZE = 20; // rendered tile size in pixels
+    private static final int MAP_WIDTH = 15;        // the number of tiles across
+    private static final int MAP_HEIGHT = 15;       // the number of tiles long
+    public static final int TILE_SIZE = 20;         // rendered tile size in pixels
     
-    private int[][] mapData = new int[TILE_WIDTH][TILE_HEIGHT];
+    private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
     
     public Map() {
         
         // eventually provide an external source (random generator, file, etc.)
-        for(int y = 0; y < TILE_HEIGHT; y++) {
+        for(int y = 0; y < MAP_HEIGHT; y++) {
             mapData[0][y] = BLOCKED;    
             mapData[2][y] = BLOCKED;     
             mapData[7][y] = BLOCKED;
             mapData[11][y] = BLOCKED;
-            mapData[TILE_WIDTH - 1][y] = BLOCKED;
+            mapData[MAP_WIDTH - 1][y] = BLOCKED;
         }
         
-        for(int x = 0; x < TILE_WIDTH; x++) {
-            if((x > 0) && (x < TILE_WIDTH - 1)) {
+        for(int x = 0; x < MAP_WIDTH; x++) {
+            if((x > 0) && (x < MAP_WIDTH - 1)) {
                 mapData[x][10] = CLEAR;
             }
             
@@ -50,7 +50,7 @@ public class Map {
                 mapData[x][9] = BLOCKED;
             }
             mapData[x][0] = BLOCKED;
-            mapData[x][TILE_HEIGHT - 1] = BLOCKED;
+            mapData[x][MAP_HEIGHT - 1] = BLOCKED;
         }
         
         mapData[4][9] = CLEAR;
@@ -68,8 +68,8 @@ public class Map {
     
     public void paint(Graphics2D g) {
         
-        for (int x = 0; x < TILE_WIDTH; x++) {
-            for (int y = 0; y < TILE_HEIGHT; y++) {
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
                 g.setColor(Color.BLACK);
                 if(mapData[x][y] == BLOCKED) {
                     g.setColor(Color.red);

@@ -5,6 +5,8 @@
  */
 package basictiles;
 
+import data.Database;
+
 /**
  *
  * @author Keith
@@ -15,6 +17,12 @@ public class BasicTiles {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        
+        
+        Database database = new Database();
+        database.databaseConnect();
+        
         new Game();
     }
     
