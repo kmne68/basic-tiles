@@ -16,9 +16,7 @@ public class BasicTiles {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
-        
+    public static void main(String[] args) {       
         
         Database database = new Database();
         database.databaseConnect();

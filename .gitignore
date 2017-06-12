@@ -1,2 +1,4 @@
 /build/
 /dist/
+/src/resources/properties
+/src/config/properties
