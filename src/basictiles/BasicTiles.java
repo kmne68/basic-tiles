@@ -21,6 +21,9 @@ public class BasicTiles {
         Database database = new Database();
         database.databaseConnect();
         
+        Object object = new Object();
+        
+        
         new Game();
     }
     

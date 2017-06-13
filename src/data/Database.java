@@ -33,7 +33,9 @@ public class Database {
     public void databaseConnect() {
 
         try {
-            input = new FileInputStream("config.properties");
+       //     input = new FileInputStream("C:\\Users\\Keith\\Documents\\NetBeansProjects\\BasicTiles\\src\\config\\properties");
+            input = new FileInputStream(".\\src\\config\\properties");
+
             prop.load(input);
             
          
