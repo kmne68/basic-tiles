@@ -7,6 +7,7 @@ package basictiles;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Random;
 
 /**
  *
@@ -28,6 +29,9 @@ public class Map {
     private static final int MAP_HEIGHT = 15;       // the number of tiles long
     public static final int TILE_SIZE = 20;         // rendered tile size in pixels
     
+    //private Object object;
+    
+//    Color color = new Color(object.randomRed, object.randomGreen, object.randomBlue);
     private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
     
     public Map() {
@@ -57,6 +61,8 @@ public class Map {
         mapData[7][5] = CLEAR;
         mapData[7][4] = CLEAR;
         mapData[11][7] = CLEAR;
+        
+     //   mapData[object.locationX][object.locationY] = CLEAR;
     }
     
     /**
@@ -67,7 +73,7 @@ public class Map {
     
     
     public void paint(Graphics2D g) {
-        
+                
         for (int x = 0; x < MAP_WIDTH; x++) {
             for (int y = 0; y < MAP_HEIGHT; y++) {
                 g.setColor(Color.BLACK);

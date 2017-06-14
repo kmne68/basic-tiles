@@ -35,6 +35,22 @@ public class Object {
         System.out.println("X, Y, R, G, B: " + locationX + ", " + locationY + ", "  + randomRed + ", "  + randomGreen + ", "  + randomBlue);
         
         }
+
+    public int getRandomRed() {
+        return randomRed;
+    }
+
+    public int getRandomGreen() {
+        return randomGreen;
+    }
+
+    public int getRandomBlue() {
+        return randomBlue;
+    }
+    
+    
+    
+    
     
     
     
