@@ -29,6 +29,8 @@ public class Map {
     private static final int MAP_HEIGHT = 15;       // the number of tiles long
     public static final int TILE_SIZE = 20;         // rendered tile size in pixels
     
+    private int[][] blockedTiles = new int[MAP_WIDTH][MAP_HEIGHT];
+    
     //private Object object;
     
 //    Color color = new Color(object.randomRed, object.randomGreen, object.randomBlue);
@@ -73,13 +75,32 @@ public class Map {
     
     
     public void paint(Graphics2D g) {
-                
+        
+        
+    /*  Original code          
         for (int x = 0; x < MAP_WIDTH; x++) {
             for (int y = 0; y < MAP_HEIGHT; y++) {
                 g.setColor(Color.BLACK);
                 if(mapData[x][y] == BLOCKED) {
                     g.setColor(Color.red);
                 }
+    */    
+    
+        Random randomGenerator = new Random();
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                g.setColor(Color.BLACK);
+                if(mapData[x][y] == BLOCKED && x == 0 && y == 0) {
+            //       Random randomGenerator = new Random();
+//                    int randomRed = randomGenerator.nextInt(255);
+//                    int randomGreen = randomGenerator.nextInt(255);
+//                    int randomBlue = randomGenerator.nextInt(255);
+//                    Color color = new Color(randomRed, randomGreen, randomBlue);
+//                    g.setColor(color);
+                    blockedTiles[x][y] = mapData[x][y];
+                }
+                System.out.println("mapData " + mapData[1][1]);
+                
                 
                 // add an outline to the map
                 g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);

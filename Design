@@ -1,0 +1,36 @@
+Basic Tiles
+
+The purpose of this program is to provide a basic tile-based gaming environment.
+
+The game loop in Game.java paints the map, player and other game objects including
+monsters and loot.
+
+Object types and locations are generated randomly.
+
+Create the map:
+
+for the width of the map
+  for the length of the map
+    if tile is blocked, change it to a random color
+
+
+
+Determine object attributes:
+Location (x, y coordinates)
+Blocking (boolean)
+Structure (type, size)
+Vegetation
+Geology
+Mineralogy
+Fauna
+
+
+
+
+
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            for (int y = 0; y < MAP_HEIGHT; y++) {
+                g.setColor(Color.BLACK);
+                if(mapData[x][y] == BLOCKED) {
+                    g.setColor(Color.red);
+                }
