@@ -12,8 +12,8 @@ Create the map:
 for the width of the map
   for the length of the map
     if tile is blocked, change it to a random color
-
-
+Create an array or list of objects to be added to the map
+Create the algorithm that assigns objects to tiles
 
 Determine object attributes:
 Location (x, y coordinates)
