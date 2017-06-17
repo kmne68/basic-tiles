@@ -77,27 +77,25 @@ public class Map {
     public void paint(Graphics2D g) {
         
         
-    /*  Original code          
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            for (int y = 0; y < MAP_HEIGHT; y++) {
-                g.setColor(Color.BLACK);
-                if(mapData[x][y] == BLOCKED) {
-                    g.setColor(Color.red);
-                }
-    */    
+    //  Original code          
+//        for (int x = 0; x < MAP_WIDTH; x++) {
+//            for (int y = 0; y < MAP_HEIGHT; y++) {
+//                g.setColor(Color.BLACK);
+//                if(mapData[x][y] == BLOCKED) {
+//                    g.setColor(Color.red);
+//                }
+//        
     
         Random randomGenerator = new Random();
         for (int x = 0; x < MAP_WIDTH; x++) {
             for (int y = 0; y < MAP_HEIGHT; y++) {
                 g.setColor(Color.BLACK);
-                if(mapData[x][y] == BLOCKED && x == 0 && y == 0) {
-            //       Random randomGenerator = new Random();
-//                    int randomRed = randomGenerator.nextInt(255);
-//                    int randomGreen = randomGenerator.nextInt(255);
-//                    int randomBlue = randomGenerator.nextInt(255);
-//                    Color color = new Color(randomRed, randomGreen, randomBlue);
-//                    g.setColor(color);
-                    blockedTiles[x][y] = mapData[x][y];
+                if(mapData[x][y] == BLOCKED) { 
+                    int randomRed = randomGenerator.nextInt(255);
+                    int randomGreen = randomGenerator.nextInt(255);
+                    int randomBlue = randomGenerator.nextInt(255);
+                    Color color = new Color(randomRed, randomGreen, randomBlue);
+                    g.setColor(color);
                 }
                 System.out.println("mapData " + mapData[1][1]);
                 
