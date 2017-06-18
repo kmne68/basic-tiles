@@ -5,6 +5,22 @@ The purpose of this program is to provide a basic tile-based gaming environment.
 The game loop in Game.java paints the map, player and other game objects including
 monsters and loot.
 
+Start [click executable]
+Show open (loading) screen while game loads
+Start screen (game options)
+    start
+    options
+    save (2.0)
+    quit
+[START] Load game view
+Generate map
+Draw map
+Generate objects
+Draw objects [inanimate objects, NPCs, animals]
+Draw Player [initially w/o customization, customize in 2.0]
+
+--------------------------------
+
 Object types and locations are generated randomly.
 
 Create the map:
@@ -24,13 +40,19 @@ Geology
 Mineralogy
 Fauna
 
+---------------------
 
+Object Attributes
+ID          int
+Active      boolean                 Inactive = destroyed, or no longer on the map (e.g. moved to inventory)
+Type        int                     Weapon, loot, furniture, hut, etc.
+Description String
+Reactive    boolean                 Not sure about this, it would be a flag for objects with actions such as traps
+Mass        int
+Size        int                     pocket, pack, cart, immovable
 
+---------------------
 
-
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            for (int y = 0; y < MAP_HEIGHT; y++) {
-                g.setColor(Color.BLACK);
-                if(mapData[x][y] == BLOCKED) {
-                    g.setColor(Color.red);
-                }
+Routines
+int getObject()             // return id of object
+void stashObject()          // remove from map, place in inventory
