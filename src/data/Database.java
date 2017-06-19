@@ -53,12 +53,12 @@ public class Database {
             try {
                 Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
                 Statement statement = connection.createStatement();
-                sql = "SELECT * FROM customer ORDER BY name";
+                sql = "SELECT * FROM game_objects ORDER BY id";
                 //        sql = "SELECT * FROM tile_types";
                 ResultSet results = statement.executeQuery(sql);
                 results.first();
                 System.out.println("DatabaseConnect");
-                System.out.println(new String(results.getString(1)));
+                System.out.println(new String(results.getString(4)));
                 ResultSetMetaData rsmd = results.getMetaData();
                 int columns = rsmd.getColumnCount();
                 while (results.next()) {
