@@ -92,6 +92,27 @@ public class Entity {
     }
     
     
+        public boolean hasObject(float nX, float ny) {
+        
+        boolean result = false;
+        
+        if(map.blocked(nX - playerSize, ny - playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX + playerSize, ny - playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX - playerSize , ny + playerSize)) {
+            return false;
+        }
+        if(map.blocked(nX + playerSize, ny + playerSize)) {
+            return false;
+        }
+        
+        // If we've made it to here, the way is clear               
+        return true;
+    }
+    
     
     void paint(Graphics2D g) {
 
