@@ -64,6 +64,8 @@ public class Entity {
         return false;
     }
     
+
+    
     /**
      * 
      * @param nX
@@ -92,24 +94,23 @@ public class Entity {
     }
     
     
-        public boolean hasObject(float nX, float ny) {
+        public boolean checkForObject(float nX, float ny) {
         
-        boolean result = false;
-        
-        if(map.blocked(nX - playerSize, ny - playerSize)) {
+        if(map.hasObject(nX - playerSize, ny - playerSize)) {
             return false;
         }
-        if(map.blocked(nX + playerSize, ny - playerSize)) {
+        if(map.hasObject(nX + playerSize, ny - playerSize)) {
             return false;
         }
-        if(map.blocked(nX - playerSize , ny + playerSize)) {
+        if(map.hasObject(nX - playerSize , ny + playerSize)) {
             return false;
         }
-        if(map.blocked(nX + playerSize, ny + playerSize)) {
+        if(map.hasObject(nX + playerSize, ny + playerSize)) {
             return false;
         }
         
-        // If we've made it to here, the way is clear               
+        // an object is detected  
+        System.out.println("An object was detected from Entity.checkForObject.");
         return true;
     }
     

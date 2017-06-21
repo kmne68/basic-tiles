@@ -70,6 +70,7 @@ public class Map {
             int randomX = randomGenerator.nextInt(MAP_WIDTH);
             int randomY = randomGenerator.nextInt(MAP_HEIGHT);
             objectCoordinates[randomX][randomY] = OBJECT;
+        //    mapData[randomX][randomY] = OBJECT;
         }
         
     //    mapData[2][3] = OBJECT;             // adds a uniquely colored block to the map at the specified location
@@ -106,9 +107,9 @@ public class Map {
                 }
                 if (objectCoordinates[x][y] == OBJECT) {
                     g.setColor(Color.ORANGE);
-
+        //            System.out.println("objectCoordinates = " + objectCoordinates[x][y]);
                 }
-                System.out.println("mapData " + mapData[1][1]);
+        //        System.out.println("mapData " + mapData[1][1]);
 
                 // add an outline to the map
                 g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -129,6 +130,14 @@ public class Map {
         // check the cell by rounding the floating values, then determine
         // whether it is blocked and return the result
         return mapData[(int) x][(int) y] == BLOCKED;
+    }
+    
+    
+    public boolean hasObject(float x, float y) {
+        
+        System.out.println("hasObject objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y]);
+        return objectCoordinates[(int) x][(int) y] == OBJECT;
+     //   return mapData[(int) x][(int) y] == OBJECT;
     }
 
 }

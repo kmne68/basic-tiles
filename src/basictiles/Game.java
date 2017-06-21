@@ -40,7 +40,8 @@ public class Game extends Canvas implements KeyListener {
     private boolean down;
     
     private Map map;
-    private PlayerEntity player;
+//    private PlayerEntity player;
+    private Entity player;
     private MonsterEntity monster;
     
     /**
@@ -191,7 +192,11 @@ public class Game extends Canvas implements KeyListener {
         }
         
         if((dx != 0) || (dy != 0)) {
+            
+            boolean object = false;
+            object = player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f);
             player.move(dx * delta * 0.003f, dy * delta * 0.003f);
+        //    System.out.println("checkForObject from Game.logic = " + object);
         }
     }
     
