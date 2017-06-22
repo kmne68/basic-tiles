@@ -134,9 +134,10 @@ public class Map {
     
     
     public boolean hasObject(float x, float y) {
-        
-        System.out.println("hasObject objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y]);
-        return objectCoordinates[(int) x][(int) y] == OBJECT;
+        boolean tempBool = false;
+        tempBool = objectCoordinates[(int) x][(int) y] == OBJECT;
+        System.out.println("objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y] + ", " + tempBool);
+        return true; // objectCoordinates[(int) x][(int) y] == OBJECT;
      //   return mapData[(int) x][(int) y] == OBJECT;
     }
 

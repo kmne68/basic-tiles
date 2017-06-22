@@ -56,3 +56,12 @@ Size        int                     pocket, pack, cart, immovable
 Routines
 int getObject()             // return id of object
 void stashObject()          // remove from map, place in inventory
+
+
+---------------------
+
+1. attempt move to new location
+2. test whether move is allowed
+3a. if not blocked move to new location
+4. test whether new location has an object
+3b. if blocked do nothing

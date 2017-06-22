@@ -191,11 +191,23 @@ public class Game extends Canvas implements KeyListener {
             dy += 1;
         }
         
+        System.out.println("delta = " + delta + ", " + dx + ", " + dy);
         if((dx != 0) || (dy != 0)) {
             
-            boolean object = false;
-            object = player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f);
-            player.move(dx * delta * 0.003f, dy * delta * 0.003f);
+        //    boolean object = false;
+        //  if player.move returns true, check also if an object is detected  
+            if (player.move(dx * delta * 0.003f, dy * delta * 0.003f))
+            {
+        //        if(player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f))
+                if(map.hasObject(dx * delta * 0.003f, dy * delta * 0.003f))
+                {
+                    System.out.println("Object = true" + (dx*delta*0.003f) + ", " + (dy * delta * 0.003f));
+                }
+                else
+                {
+                    System.out.println("Object = false, x = " + (dx*delta*0.003f) + ", " + (dy * delta * 0.003f));
+                }
+            }
         //    System.out.println("checkForObject from Game.logic = " + object);
         }
     }
