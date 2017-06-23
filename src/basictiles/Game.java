@@ -143,7 +143,7 @@ public class Game extends Canvas implements KeyListener {
             
             // pause
             try{
-                Thread.sleep(4);
+                Thread.sleep(400);    // was 4
             }
             catch (Exception e) {};
             
@@ -196,16 +196,16 @@ public class Game extends Canvas implements KeyListener {
             
         //    boolean object = false;
         //  if player.move returns true, check also if an object is detected  
-            if (player.move(dx * delta * 0.003f, dy * delta * 0.003f))
+            if (player.move(dx * delta * 0.003f, dy * delta * 0.003f) == true)
             {
-        //        if(player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f))
-                if(map.hasObject(dx * delta * 0.003f, dy * delta * 0.003f))
+                if(player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f))
+        //        if(map.hasObject(dx * delta * 0.003f, dy * delta * 0.003f))
                 {
-                    System.out.println("Object = true" + (dx*delta*0.003f) + ", " + (dy * delta * 0.003f));
+                    System.out.println("Object = true" + ", " + (dx * 0.003f) + ", " + (dy * 0.003f));
                 }
                 else
                 {
-                    System.out.println("Object = false, x = " + (dx*delta*0.003f) + ", " + (dy * delta * 0.003f));
+                    System.out.println("Object = false, x = " + (dx * 0.003f) + ", " + (dy * 0.003f));
                 }
             }
         //    System.out.println("checkForObject from Game.logic = " + object);

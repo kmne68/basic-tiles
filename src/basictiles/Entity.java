@@ -96,22 +96,26 @@ public class Entity {
     
         public boolean checkForObject(float nX, float ny) {
         
-        if(map.hasObject(nX - playerSize, ny - playerSize)) {
-            return false;
+    //    if(map.hasObject(nX - playerSize, ny - playerSize)) {
+        if(map.hasObject(this.playerX - playerSize, this.playerY - playerSize)) {
+            return true;
         }
-        if(map.hasObject(nX + playerSize, ny - playerSize)) {
-            return false;
+    //    if(map.hasObject(nX + playerSize, ny - playerSize)) {
+        if(map.hasObject(this.playerX + playerSize , this.playerY - playerSize)) {
+            return true;
         }
-        if(map.hasObject(nX - playerSize , ny + playerSize)) {
-            return false;
+   //     if(map.hasObject(nX - playerSize , ny + playerSize)) {
+        if(map.hasObject(this.playerX - playerSize, this.playerY + playerSize)) {
+            return true;
         }
-        if(map.hasObject(nX + playerSize, ny + playerSize)) {
-            return false;
+    //    if(map.hasObject(nX + playerSize, ny + playerSize)) {
+        if(map.hasObject(this.playerX + playerSize, this.playerY + playerSize)) {
+            return true;
         }
         
-        // an object is detected  
-        System.out.println("An object was detected from Entity.checkForObject.");
-        return true;
+        // no object was detected  
+        System.out.println("No object was detected from Entity.checkForObject.");
+        return false;
     }
     
     

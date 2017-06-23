@@ -70,6 +70,7 @@ public class Map {
             int randomX = randomGenerator.nextInt(MAP_WIDTH);
             int randomY = randomGenerator.nextInt(MAP_HEIGHT);
             objectCoordinates[randomX][randomY] = OBJECT;
+            System.out.println("randomX = " + randomX + ", " + "randomY = " + randomY);
         //    mapData[randomX][randomY] = OBJECT;
         }
         
@@ -106,6 +107,8 @@ public class Map {
                     g.setColor(color);
                 }
                 if (objectCoordinates[x][y] == OBJECT) {
+                    
+                    mapData[x][y] = OBJECT;
                     g.setColor(Color.ORANGE);
         //            System.out.println("objectCoordinates = " + objectCoordinates[x][y]);
                 }
@@ -135,10 +138,11 @@ public class Map {
     
     public boolean hasObject(float x, float y) {
         boolean tempBool = false;
-        tempBool = objectCoordinates[(int) x][(int) y] == OBJECT;
-        System.out.println("objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y] + ", " + tempBool);
-        return true; // objectCoordinates[(int) x][(int) y] == OBJECT;
-     //   return mapData[(int) x][(int) y] == OBJECT;
+    //    tempBool = objectCoordinates[(int) x][(int) y] == OBJECT;
+        tempBool = (mapData[(int) x][(int) y] == OBJECT);
+     //   System.out.println("objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y] + ", " + tempBool);
+     //   return objectCoordinates[(int) x][(int) y] == OBJECT;
+        return mapData[(int) x][(int) y] == OBJECT;
     }
 
 }
