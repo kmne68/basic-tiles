@@ -64,12 +64,18 @@ public class Map {
         mapData[7][4] = CLEAR;
         mapData[11][7] = CLEAR;
         
+   /*     mapData[6][3] = OBJECT;
+        mapData[6][6] = OBJECT;
+        mapData[10][4] = OBJECT;
+        */
+        
         // produce 10 Object tiles (orange) with random coordinates
         Random randomGenerator = new Random();
         for(int i = 0; i < 10; i++) {
             int randomX = randomGenerator.nextInt(MAP_WIDTH);
             int randomY = randomGenerator.nextInt(MAP_HEIGHT);
-            objectCoordinates[randomX][randomY] = OBJECT;
+       //     objectCoordinates[randomX][randomY] = OBJECT;
+            mapData[randomX][randomY] = OBJECT;
             System.out.println("randomX = " + randomX + ", " + "randomY = " + randomY);
         //    mapData[randomX][randomY] = OBJECT;
         }
@@ -106,8 +112,8 @@ public class Map {
                     Color color = new Color(randomRed, randomGreen, randomBlue);
                     g.setColor(color);
                 }
-                if (objectCoordinates[x][y] == OBJECT) {
-                    
+             //   if (objectCoordinates[x][y] == OBJECT) {
+                if (mapData[x][y] == OBJECT) {    
                     mapData[x][y] = OBJECT;
                     g.setColor(Color.ORANGE);
         //            System.out.println("objectCoordinates = " + objectCoordinates[x][y]);

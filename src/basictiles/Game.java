@@ -143,7 +143,7 @@ public class Game extends Canvas implements KeyListener {
             
             // pause
             try{
-                Thread.sleep(400);    // was 4
+                Thread.sleep(40);    // was 4
             }
             catch (Exception e) {};
             
@@ -191,7 +191,7 @@ public class Game extends Canvas implements KeyListener {
             dy += 1;
         }
         
-        System.out.println("delta = " + delta + ", " + dx + ", " + dy);
+        //System.out.println("delta = " + delta + ", " + dx + ", " + dy);
         if((dx != 0) || (dy != 0)) {
             
         //    boolean object = false;
