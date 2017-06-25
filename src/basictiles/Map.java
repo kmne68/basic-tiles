@@ -25,6 +25,7 @@ public class Map {
     private static final int CLEAR = 0;
     private static final int BLOCKED = 1;
     private static final int OBJECT = 2;
+    private static final int LOOTED = 3;
     private static final int MAP_WIDTH = 15;        // the number of tiles across
     private static final int MAP_HEIGHT = 15;       // the number of tiles long
     public static final int TILE_SIZE = 20;         // rendered tile size in pixels
@@ -37,7 +38,7 @@ public class Map {
     private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
 
     public Map() {
-
+    
         // eventually provide an external source (random generator, file, etc.)
         for (int y = 0; y < MAP_HEIGHT; y++) {
             mapData[0][y] = BLOCKED;
@@ -80,6 +81,8 @@ public class Map {
         //    mapData[randomX][randomY] = OBJECT;
         }
         
+        
+        
     //    mapData[2][3] = OBJECT;             // adds a uniquely colored block to the map at the specified location
 
         //   mapData[object.locationX][object.locationY] = CLEAR;
@@ -91,6 +94,14 @@ public class Map {
      * @param g the graphics context
      */
     public void paint(Graphics2D g) {
+        
+        for(int x = 0; x < MAP_WIDTH; x++) {
+            for(int y = 0; y < MAP_HEIGHT; y++) {
+                if(mapData[x][y] == LOOTED) {
+                    System.out.println("top of paint, block value = " + mapData[x][y]);
+                }
+            }            
+        }
 
         //  Original code          
 //        for (int x = 0; x < MAP_WIDTH; x++) {
@@ -114,11 +125,24 @@ public class Map {
                 }
              //   if (objectCoordinates[x][y] == OBJECT) {
                 if (mapData[x][y] == OBJECT) {    
-                    mapData[x][y] = OBJECT;
+                //    mapData[x][y] = OBJECT;
                     g.setColor(Color.ORANGE);
         //            System.out.println("objectCoordinates = " + objectCoordinates[x][y]);
                 }
         //        System.out.println("mapData " + mapData[1][1]);
+        
+                if(mapData[x][y] == LOOTED) {
+                    
+                    g.setColor(Color.MAGENTA);
+                }
+                
+        for(int i = 0; i < MAP_WIDTH; i++) {
+            for(int j = 0; j < MAP_HEIGHT; j++) {
+                if(mapData[x][y] == LOOTED) {
+                    System.out.println("bottom of paint, block value = " + mapData[i][j]);
+                }
+            }            
+        }
 
                 // add an outline to the map
                 g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
@@ -143,12 +167,23 @@ public class Map {
     
     
     public boolean hasObject(float x, float y) {
-        boolean tempBool = false;
+    //    boolean tempBool = false;
     //    tempBool = objectCoordinates[(int) x][(int) y] == OBJECT;
-        tempBool = (mapData[(int) x][(int) y] == OBJECT);
+    //    tempBool = (mapData[(int) x][(int) y] == OBJECT);
      //   System.out.println("objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y] + ", " + tempBool);
      //   return objectCoordinates[(int) x][(int) y] == OBJECT;
         return mapData[(int) x][(int) y] == OBJECT;
     }
-
+    
+    
+    /***
+     * updateMap(int, int) updates the map after an entity interacts with it or
+     * an object on it
+     */
+    public void updateMap(float xLocation, float yLocation) {
+        
+        mapData[(int) xLocation][(int) yLocation] = LOOTED;
+        
+        System.out.println("Block color = " + mapData[(int) xLocation][(int) yLocation]);
+    }
 }

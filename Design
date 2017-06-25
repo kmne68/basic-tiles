@@ -65,3 +65,7 @@ void stashObject()          // remove from map, place in inventory
 3a. if not blocked move to new location
 4. test whether new location has an object
 3b. if blocked do nothing
+
+
+
+Need an Map.update() fxn that is called by entity objects that alter the map.
