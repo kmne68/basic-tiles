@@ -116,13 +116,19 @@ public class Map {
             for (int y = 0; y < MAP_HEIGHT; y++) {
                 g.setColor(Color.BLACK);
 
-                if (mapData[x][y] == BLOCKED) {
+    /*            if (mapData[x][y] == BLOCKED) {
                     int randomRed = randomGenerator.nextInt(255);
                     int randomGreen = randomGenerator.nextInt(255);
                     int randomBlue = randomGenerator.nextInt(255);
                     Color color = new Color(randomRed, randomGreen, randomBlue);
                     g.setColor(color);
                 }
+*/
+                if(mapData[x][y] == BLOCKED) {
+                    g.setColor(Color.GREEN);
+                }
+                
+                
              //   if (objectCoordinates[x][y] == OBJECT) {
                 if (mapData[x][y] == OBJECT) {    
                 //    mapData[x][y] = OBJECT;
