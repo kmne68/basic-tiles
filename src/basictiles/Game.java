@@ -48,8 +48,8 @@ public class Game extends Canvas implements KeyListener {
      * Create game and begin game loop
      */
     
-    public Game() {
-        
+    public Game(Map map) {
+        this.map = map;
         monsterSprite = spriteLoader("monster");
         playerSprite = spriteLoader("sprite");
         // load monster sprite
@@ -107,7 +107,7 @@ public class Game extends Canvas implements KeyListener {
         bufferStrategy = getBufferStrategy();
         
         // Add game objects
-        map = new Map();
+     //   map = new Map();
         monster = new MonsterEntity(monsterSprite, map, 1.5f, 1.5f);
         player = new PlayerEntity(playerSprite, map, 5f, 5f);
         

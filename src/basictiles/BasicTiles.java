@@ -21,10 +21,11 @@ public class BasicTiles {
         Database database = new Database();
         database.databaseConnect();
         
-        Object object = new Object();
+        Map map = new Map();
+        Object object = new Object(map);
         
         
-        new Game();
+        new Game(map);
     }
     
 }

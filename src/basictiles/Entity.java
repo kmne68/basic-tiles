@@ -135,5 +135,10 @@ public class Entity {
         g.drawImage(spriteImage, (int) (xPaint -16), (int) (yPaint - 16), null);
         g.rotate(-playerAngle, xPaint, yPaint);
     }
+    
+    
+
+
+    
 
 }

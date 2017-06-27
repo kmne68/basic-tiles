@@ -14,17 +14,24 @@ import java.util.Random;
 public class Object {
 
     Map map;
+    int objectID;
+    int consquenceID;
+    int isActive;
+    int objectType; // natural resource, treasure, building, weapon, etc
+    String objectName;
     int locationX;
     int locationY;
-    int randomRed;
-    int randomGreen;
-    int randomBlue;
-    String objectName;
-    int type; // natural resource, treasure, building, weapon, etc
-    int objectID;
-
-    public Object() {        
+    String description;
+    int isReactive;
+   
+    int randomRed;          // for
+    int randomGreen;        // testing
+    int randomBlue;         // purposes
+    
+    
+    public Object(Map map) {        
                 
+        this.map = map;
         Random randomGenerator = new Random();
         this.locationX = randomGenerator.nextInt(15);
         this.locationY = randomGenerator.nextInt(15);
@@ -50,9 +57,9 @@ public class Object {
     
     
     
-    
-    
-    
-    
-    
+    public int hasConsequences() {            
+            
+        return this.consquenceID;
     }
+    
+}
