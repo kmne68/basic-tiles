@@ -172,13 +172,16 @@ public class Map {
     }
     
     
-    public boolean hasObject(float x, float y) {
+    public int hasObject(float x, float y) {
     //    boolean tempBool = false;
     //    tempBool = objectCoordinates[(int) x][(int) y] == OBJECT;
     //    tempBool = (mapData[(int) x][(int) y] == OBJECT);
      //   System.out.println("objectCoordinates from Map.hasObject = " + x + ", " + y + ", " + objectCoordinates[(int) x][(int)y] + ", " + tempBool);
      //   return objectCoordinates[(int) x][(int) y] == OBJECT;
-        return mapData[(int) x][(int) y] == OBJECT;
+        if (mapData[(int) x][(int) y] == OBJECT)
+        return OBJECT;
+        else
+        return 0;
     }
     
     

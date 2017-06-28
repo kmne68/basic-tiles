@@ -23,6 +23,8 @@ public class Object {
     int locationY;
     String description;
     int isReactive;
+    int mass;
+    int size;
    
     int randomRed;          // for
     int randomGreen;        // testing

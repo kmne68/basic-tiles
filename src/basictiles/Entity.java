@@ -97,23 +97,23 @@ public class Entity {
         public boolean checkForObject(float nX, float ny) {
         
     //    if(map.hasObject(nX - playerSize, ny - playerSize)) {
-        if(map.hasObject(this.playerX - playerSize, this.playerY - playerSize)) {
+        if(map.hasObject(this.playerX - playerSize, this.playerY - playerSize) == 2) {
             
             map.updateMap(this.playerX - playerSize, this.playerY - playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny - playerSize)) {
-        if(map.hasObject(this.playerX + playerSize , this.playerY - playerSize)) {
+        if(map.hasObject(this.playerX + playerSize , this.playerY - playerSize) ==2) {
             map.updateMap(this.playerX + playerSize, this.playerY - playerSize);
             return true;
         }
    //     if(map.hasObject(nX - playerSize , ny + playerSize)) {
-        if(map.hasObject(this.playerX - playerSize, this.playerY + playerSize)) {
+        if(map.hasObject(this.playerX - playerSize, this.playerY + playerSize) == 2) {
             map.updateMap(this.playerX - playerSize, this.playerY + playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny + playerSize)) {
-        if(map.hasObject(this.playerX + playerSize, this.playerY + playerSize)) {
+        if(map.hasObject(this.playerX + playerSize, this.playerY + playerSize) == 2) {
             map.updateMap(this.playerX + playerSize, this.playerY + playerSize);
             return true;
         }
