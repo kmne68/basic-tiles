@@ -5,7 +5,7 @@
  */
 package basictiles;
 
-import data.Database;
+import data.ConnectionPoolManager;
 
 /**
  *
@@ -18,7 +18,7 @@ public class BasicTiles {
      */
     public static void main(String[] args) {       
         
-        Database database = new Database();
+        ConnectionPoolManager database = new ConnectionPoolManager();
         database.databaseConnect();
         
         Map map = new Map();

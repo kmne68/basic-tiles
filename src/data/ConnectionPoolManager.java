@@ -8,20 +8,28 @@ package data;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.logging.Logger;
+import javax.sql.ConnectionEvent;
+import javax.sql.ConnectionEventListener;
+import javax.sql.ConnectionPoolDataSource;
 import javax.sql.DataSource;
 
 /**
  *
  * @author Keith
  */
-public class Database {
+public class ConnectionPoolManager  {
+    
+    private PrintWriter logWriter;
 
     String dbURL = "";  // "jdbc:mysql://localhost:3306/salesdb?useSSL=false";
     String dbUser = "";
@@ -33,6 +41,9 @@ public class Database {
     
     DataSource dataSource;  // not used yet
 
+
+    
+    
     public void databaseConnect() {
 
         try {
@@ -82,4 +93,5 @@ public class Database {
             loading = false;
             
         }
+
     }
