@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.Properties;
+import java.util.Vector;
 import java.util.logging.Logger;
 import javax.sql.ConnectionEvent;
 import javax.sql.ConnectionEventListener;
@@ -35,16 +36,31 @@ public class ConnectionPoolManager  {
     String dbUser = "";
     String dbPassword = "";
     boolean loading = false;
+    
+    Vector connectionPool = new Vector();
 
     Properties prop = new Properties();
     InputStream input = null;
     
     DataSource dataSource;  // not used yet
 
-
+    public ConnectionPoolManager() {
+        initialize();
+    }
     
     
-    public void databaseConnect() {
+    public ConnectionPoolManager(String dbName, String url, String user, String password) {
+        
+        this.dbURL = url;
+        this.dbUser = user;
+        this.dbPassword = password;
+        initialize();        
+    }
+    
+    
+    public Connection databaseConnect() {
+        
+        Connection connection = null;
 
         try {
        //     input = new FileInputStream("C:\\Users\\Keith\\Documents\\NetBeansProjects\\BasicTiles\\src\\config\\properties");
@@ -65,7 +81,8 @@ public class ConnectionPoolManager  {
             String sql = "";
 
             try {
-                Connection connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+                Class.forName("com.mysql.jdbc.Driver");
+                connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
                 Statement statement = connection.createStatement();
                 sql = "SELECT * FROM gameobject ORDER BY id";
                 //        sql = "SELECT * FROM tile_types";
@@ -89,9 +106,57 @@ public class ConnectionPoolManager  {
         //        }
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e + " " + sql);
+                return null;
+            } catch (ClassNotFoundException cnfe) {
+                System.err.println("ClassNotFoundException: " + cnfe);
+                return null;
             }
-            loading = false;
+            
+            return connection;
+        //    loading = false;
             
         }
 
+    private void initialize() {
+        
+        initializeConnectionPool();
     }
+
+    private void initializeConnectionPool() {
+        
+        while(!checkConnectionAvailability()) {
+            System.out.println("Connections are available, connecting...");
+            connectionPool.addElement(databaseConnect());
+        }
+        System.out.println("No connections are avaialble. Pool is full.");
+    }
+
+    
+    private synchronized boolean checkConnectionAvailability() {
+        
+        final int MAX_POOL_SIZE = 5;
+        
+        if(connectionPool.size() < 5) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    public synchronized Connection getConnectionFromPool() {
+        
+        Connection connection = null;
+        
+        if(connectionPool.size() > 0) {
+            connection = (Connection) connectionPool.firstElement();
+            connectionPool.removeElementAt(0);
+        }
+        return connection;            
+    }
+    
+    
+    public synchronized void returnConnectionToPool(Connection connection) {
+        
+        connectionPool.addElement(connection);
+    }
+}
