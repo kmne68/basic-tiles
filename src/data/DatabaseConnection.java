@@ -28,7 +28,7 @@ import javax.sql.DataSource;
  *
  * @author Keith
  */
-public class ConnectionPoolManager  {
+public class DatabaseConnection  {
     
     private PrintWriter logWriter;
 
@@ -37,26 +37,27 @@ public class ConnectionPoolManager  {
     String dbPassword = "";
     boolean loading = false;
     
-    Vector connectionPool = new Vector();
+//    Vector connectionPool = new Vector();
 
     Properties prop = new Properties();
     InputStream input = null;
     
     DataSource dataSource;  // not used yet
 
-    public ConnectionPoolManager() {
+    // Connection probably isn't needed for now
+/*    public DatabaseConnection() {
         initialize();
     }
     
     
-    public ConnectionPoolManager(String dbName, String url, String user, String password) {
+    public DatabaseConnection(String dbName, String url, String user, String password) {
         
         this.dbURL = url;
         this.dbUser = user;
         this.dbPassword = password;
         initialize();        
     }
-    
+*/    
     
     public Connection databaseConnect() {
         
@@ -117,11 +118,14 @@ public class ConnectionPoolManager  {
             
         }
 
+/*
     private void initialize() {
         
         initializeConnectionPool();
     }
+*/    
 
+    /*
     private void initializeConnectionPool() {
         
         while(!checkConnectionAvailability()) {
@@ -130,9 +134,9 @@ public class ConnectionPoolManager  {
         }
         System.out.println("No connections are avaialble. Pool is full.");
     }
-
+*/
     
-    private synchronized boolean checkConnectionAvailability() {
+/*    private synchronized boolean checkConnectionAvailability() {
         
         final int MAX_POOL_SIZE = 5;
         
@@ -141,8 +145,8 @@ public class ConnectionPoolManager  {
         }
         return true;
     }
-    
-    
+*/    
+/*    
     public synchronized Connection getConnectionFromPool() {
         
         Connection connection = null;
@@ -153,10 +157,12 @@ public class ConnectionPoolManager  {
         }
         return connection;            
     }
-    
-    
+*/    
+ 
+/*    
     public synchronized void returnConnectionToPool(Connection connection) {
         
         connectionPool.addElement(connection);
     }
+*/
 }
