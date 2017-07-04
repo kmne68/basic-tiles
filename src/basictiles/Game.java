@@ -201,6 +201,7 @@ public class Game extends Canvas implements KeyListener {
                 if(player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f))
         //        if(map.hasObject(dx * delta * 0.003f, dy * delta * 0.003f))
                 {
+                    
                     System.out.println("Object = true" + ", " + (dx * 0.003f) + ", " + (dy * 0.003f));
                 }
                 else
