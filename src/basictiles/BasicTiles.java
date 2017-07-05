@@ -19,9 +19,9 @@ public class BasicTiles {
     public static void main(String[] args) {       
         
         DatabaseConnection databaseConnection = new DatabaseConnection();
-        databaseConnection.databaseConnect();
+    //    databaseConnection.databaseConnect();
         
-        Map map = new Map();
+        Map map = new Map(databaseConnection);
         //Object object = new Object(map);
         
         

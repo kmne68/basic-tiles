@@ -5,8 +5,14 @@
  */
 package basictiles;
 
+import data.DatabaseConnection;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
 /**
@@ -21,6 +27,8 @@ import java.util.Random;
  * expand as a player moves beyond its bounds.
  */
 public class Map {
+    
+    private DatabaseConnection connection;
 
     private static final int CLEAR = 0;
     private static final int BLOCKED = 1;
@@ -37,7 +45,9 @@ public class Map {
 //    Color color = new Color(object.randomRed, object.randomGreen, object.randomBlue);
     private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
 
-    public Map() {
+    public Map(DatabaseConnection connection) {
+        
+        this.connection = connection;
     
         // eventually provide an external source (random generator, file, etc.)
         for (int y = 0; y < MAP_HEIGHT; y++) {
@@ -183,6 +193,52 @@ public class Map {
         else
         return 0;
     }
+    
+    
+    private void updateMap() {
+        
+        Boolean loading = true;
+
+        // statusMessageLabel.setText("");
+        String sql = "";
+        try {
+            connection = DriverManager.getConnection(dbURL, dbUser, dbPwd);
+            Statement s = connection.createStatement();
+            sql = "SELECT * FROM gameObject ORDER BY id";
+            ResultSet rs = s.executeQuery(sql);
+
+            rs.last();
+            // statusMessageLabel.setText("Object " + rs.getRow());
+
+            // create a customer object for every customer in the result set
+            rs.first(); // returns us to the top of hte result set
+            do {
+                Customer c = new Customer();
+                c.setCustomerID(rs.getInt("CUSTOMER_ID"));
+                c.setCustomerName(rs.getString("NAME"));
+                c.setAddress(rs.getString("ADDRESS"));
+                c.setCity(rs.getString("CITY"));
+                c.setState(rs.getString("STATE"));
+                c.setZip(rs.getString("ZIP_CODE"));
+                c.setAreaCode(rs.getInt("AREA_CODE"));
+                c.setPhoneNumber(rs.getInt("PHONE_NUMBER"));
+                c.setSalesID(rs.getInt("SALESPERSON_ID"));
+                c.setCreditLimit(rs.getDouble("credit_limit"));
+                c.setComments(rs.getString("comments"));
+
+                cmb_customers.addItem(c);
+            } while (rs.next());
+            rs.close();
+            conn.close();
+            cmb_customers.setSelectedIndex(-1);
+        } catch (SQLException e) {
+          //  statusMessageLabel.setText("SQL Error: " + e + " " + sql);
+        } catch (Exception e) {
+           // statusMessageLabel.setText("General Err0r");
+        }
+        loading = false;
+    }
+    
     
     
     /***
