@@ -41,7 +41,7 @@ public class Map {
     private int[][] blockedTiles = new int[MAP_WIDTH][MAP_HEIGHT];
 
     private int[][] objectCoordinates = new int[MAP_WIDTH][MAP_HEIGHT];
-    //private Object object;
+    //private GameObject object;
 //    Color color = new Color(object.randomRed, object.randomGreen, object.randomBlue);
     private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
 
@@ -80,7 +80,7 @@ public class Map {
         mapData[10][4] = OBJECT;
         */
         
-        // produce 10 Object tiles (orange) with random coordinates
+        // produce 10 GameObject tiles (orange) with random coordinates
         Random randomGenerator = new Random();
         for(int i = 0; i < 10; i++) {
             int randomX = randomGenerator.nextInt(MAP_WIDTH);
@@ -195,42 +195,42 @@ public class Map {
     }
     
     
-    private void updateMap() {
+    public void updateMap() {
         
+        System.out.println("From inside updateMap()");
         Boolean loading = true;
 
         // statusMessageLabel.setText("");
         String sql = "";
         try {
-            connection = DriverManager.getConnection(dbURL, dbUser, dbPwd);
+            connection = new DatabaseConnection(); //DriverManager.getConnection(dbURL, dbUser, dbPwd);
             Statement s = connection.createStatement();
             sql = "SELECT * FROM gameObject ORDER BY id";
             ResultSet rs = s.executeQuery(sql);
 
             rs.last();
-            // statusMessageLabel.setText("Object " + rs.getRow());
+            // statusMessageLabel.setText("GameObject " + rs.getRow());
+            System.out.println("GameObject " + rs.getRow());
 
             // create a customer object for every customer in the result set
-            rs.first(); // returns us to the top of hte result set
+            rs.first(); // returns us to the top of the result set
             do {
-                Customer c = new Customer();
-                c.setCustomerID(rs.getInt("CUSTOMER_ID"));
-                c.setCustomerName(rs.getString("NAME"));
-                c.setAddress(rs.getString("ADDRESS"));
-                c.setCity(rs.getString("CITY"));
-                c.setState(rs.getString("STATE"));
-                c.setZip(rs.getString("ZIP_CODE"));
-                c.setAreaCode(rs.getInt("AREA_CODE"));
-                c.setPhoneNumber(rs.getInt("PHONE_NUMBER"));
-                c.setSalesID(rs.getInt("SALESPERSON_ID"));
-                c.setCreditLimit(rs.getDouble("credit_limit"));
-                c.setComments(rs.getString("comments"));
-
-                cmb_customers.addItem(c);
+                GameObject gameObject = new GameObject(this);
+                gameObject.setObjectID(rs.getInt("ID"));
+                gameObject.setConsquenceID(rs.getInt("consequenceID"));
+                gameObject.setDescription(rs.getString("description"));
+                gameObject.setIsActive(rs.getInt("isActive"));
+                gameObject.setIsReactive(rs.getInt("isReactive"));
+                gameObject.setLocationX(rs.getInt("locationX"));
+                gameObject.setLocationY(rs.getInt("locationY"));
+                gameObject.setMass(rs.getInt("mass"));
+                gameObject.setSize(rs.getInt("size"));
+                gameObject.setObjectType(rs.getInt("objectType"));
+                gameObject.setObjectName(rs.getString("objectName"));
+                System.out.println("ID" + gameObject.getDescription());
             } while (rs.next());
             rs.close();
-            conn.close();
-            cmb_customers.setSelectedIndex(-1);
+            connection.close();
         } catch (SQLException e) {
           //  statusMessageLabel.setText("SQL Error: " + e + " " + sql);
         } catch (Exception e) {

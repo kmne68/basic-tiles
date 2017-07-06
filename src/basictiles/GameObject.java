@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Keith
  */
-public class Object {
+public class GameObject {
 
     private Map map;
     private int objectID;
@@ -31,7 +31,7 @@ public class Object {
     int randomBlue;         // purposes
     
     
-    public Object(Map map) {        
+    public GameObject(Map map) {        
                 
         this.map = map;
         Random randomGenerator = new Random();
