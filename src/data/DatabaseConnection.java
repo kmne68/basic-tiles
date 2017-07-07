@@ -42,7 +42,7 @@ import javax.sql.DataSource;
  *
  * @author Keith
  */
-public class DatabaseConnection implements Connection {
+public class DatabaseConnection  { //implements Connection {
     
     private PrintWriter logWriter;
 
@@ -183,6 +183,7 @@ public class DatabaseConnection implements Connection {
     }
 */
 
+/*
     @Override
     public Statement createStatement() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -452,4 +453,5 @@ public class DatabaseConnection implements Connection {
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+*/
 }

@@ -28,7 +28,7 @@ import java.util.Random;
  */
 public class Map {
     
-    private DatabaseConnection connection;
+    private DatabaseConnection connection; // = new DatabaseConnection();
 
     private static final int CLEAR = 0;
     private static final int BLOCKED = 1;
@@ -203,9 +203,11 @@ public class Map {
         // statusMessageLabel.setText("");
         String sql = "";
         try {
-            connection = new DatabaseConnection(); //DriverManager.getConnection(dbURL, dbUser, dbPwd);
+         //   connection = new DatabaseConnection(); //DriverManager.getConnection(dbURL, dbUser, dbPwd);
+         //   Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dragon?useSSL=false", "", "");
             Statement s = connection.createStatement();
             sql = "SELECT * FROM gameObject ORDER BY id";
+            System.out.println("SQL statement " + sql);
             ResultSet rs = s.executeQuery(sql);
 
             rs.last();
@@ -215,6 +217,7 @@ public class Map {
             // create a customer object for every customer in the result set
             rs.first(); // returns us to the top of the result set
             do {
+                System.out.println("From inside do loop");
                 GameObject gameObject = new GameObject(this);
                 gameObject.setObjectID(rs.getInt("ID"));
                 gameObject.setConsquenceID(rs.getInt("consequenceID"));
@@ -227,15 +230,19 @@ public class Map {
                 gameObject.setSize(rs.getInt("size"));
                 gameObject.setObjectType(rs.getInt("objectType"));
                 gameObject.setObjectName(rs.getString("objectName"));
-                System.out.println("ID" + gameObject.getDescription());
+                System.out.println("ID" + rs.getString("description"));
             } while (rs.next());
             rs.close();
             connection.close();
         } catch (SQLException e) {
           //  statusMessageLabel.setText("SQL Error: " + e + " " + sql);
-        } catch (Exception e) {
+          System.out.println("Sql error " + e);
+        } 
+          /*
+          catch (Exception e) {
            // statusMessageLabel.setText("General Err0r");
-        }
+           System.out.println("General error from Map.java " + e);
+        } */
         loading = false;
     }
     
