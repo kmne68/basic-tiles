@@ -99,25 +99,25 @@ public class Entity {
     //    if(map.hasObject(nX - playerSize, ny - playerSize)) {
         if(map.hasObject(this.playerX - playerSize, this.playerY - playerSize) == 2) {
             
-            map.updateMap();
+   //         map.updateMap();
             map.updateMap(this.playerX - playerSize, this.playerY - playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny - playerSize)) {
         if(map.hasObject(this.playerX + playerSize , this.playerY - playerSize) == 2) {
-            map.updateMap();
+    //        map.updateMap();
             map.updateMap(this.playerX + playerSize, this.playerY - playerSize);
             return true;
         }
    //     if(map.hasObject(nX - playerSize , ny + playerSize)) {
         if(map.hasObject(this.playerX - playerSize, this.playerY + playerSize) == 2) {
-            map.updateMap();
+    //        map.updateMap();
             map.updateMap(this.playerX - playerSize, this.playerY + playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny + playerSize)) {
         if(map.hasObject(this.playerX + playerSize, this.playerY + playerSize) == 2) {
-            map.updateMap();
+    //        map.updateMap();
             map.updateMap(this.playerX + playerSize, this.playerY + playerSize);
             return true;
         }

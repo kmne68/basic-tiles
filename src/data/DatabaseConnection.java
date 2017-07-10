@@ -104,11 +104,11 @@ public class DatabaseConnection  { //implements Connection {
                 ResultSet results = statement.executeQuery(sql);
                 results.first();
                 System.out.println("DatabaseConnect");
-        //        System.out.println(new String(results.getString(4)));
+                System.out.println("Value in column 4 is " + new String(results.getString(4)));
                 ResultSetMetaData rsmd = results.getMetaData();
                 int columns = rsmd.getColumnCount();
                 System.out.println("Columns in gameobject table: " + columns + "\n");
-        //        while (results.next()) {
+                while (results.next()) {
                     for (int i = 1; i <= columns; i++) {
                         if (i >= 1) {
                             //System.out.print(", ");
@@ -117,8 +117,9 @@ public class DatabaseConnection  { //implements Connection {
                         System.out.print(rsmd.getColumnName(i) + " " + columnValue + ", ");
                     }
                     System.out.println("");
-                    connection.close();
-        //        }
+                    
+                }
+                connection.close();
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e + " " + sql);
                 return null;

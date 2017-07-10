@@ -194,7 +194,7 @@ public class Map {
         return 0;
     }
     
-    
+/*    
     public void updateMap() {
         
         System.out.println("From inside updateMap()");
@@ -237,14 +237,14 @@ public class Map {
         } catch (SQLException e) {
           //  statusMessageLabel.setText("SQL Error: " + e + " " + sql);
           System.out.println("Sql error " + e);
-        } 
+        }  */
           /*
           catch (Exception e) {
            // statusMessageLabel.setText("General Err0r");
            System.out.println("General error from Map.java " + e);
         } */
-        loading = false;
-    }
+//        loading = false;
+//    }
     
     
     
