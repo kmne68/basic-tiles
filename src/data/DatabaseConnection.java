@@ -44,7 +44,7 @@ import javax.sql.DataSource;
  */
 public class DatabaseConnection  { //implements Connection {
     
-    private PrintWriter logWriter;
+    private DataSource datasource;
 
     String dbURL = "";  // "jdbc:mysql://localhost:3306/salesdb?useSSL=false";
     String dbUser = "";
@@ -81,14 +81,14 @@ public class DatabaseConnection  { //implements Connection {
        //     input = new FileInputStream("C:\\Users\\Keith\\Documents\\NetBeansProjects\\BasicTiles\\src\\config\\properties");
             input = new FileInputStream(".\\src\\config\\properties");
 
-            prop.load(input);
-            
-         
+            prop.load(input);        
 
             dbURL = prop.getProperty("dbURL");
             dbUser = prop.getProperty("dbUser");
             dbPassword = prop.getProperty("dbPassword");
             System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,7 +119,7 @@ public class DatabaseConnection  { //implements Connection {
                     System.out.println("");
                     
                 }
-                connection.close();
+            //    connection.close();
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e + " " + sql);
                 return null;
