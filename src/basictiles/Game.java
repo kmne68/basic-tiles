@@ -5,6 +5,7 @@
  */
 package basictiles;
 
+import data.DatabaseConnection;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
@@ -28,6 +29,7 @@ public class Game extends Canvas implements KeyListener {
     /**
      * Simple tile-based collision detection
      */
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
     
     private Image sprite;
     private Image playerSprite;
@@ -52,6 +54,9 @@ public class Game extends Canvas implements KeyListener {
         this.map = map;
         monsterSprite = spriteLoader("monster");
         playerSprite = spriteLoader("sprite");
+        
+        databaseConnection.databaseConnect();
+        System.out.println("From Game() after databaseConnection.");
         // load monster sprite
 /*      try {
             URL url = Thread.currentThread().getContextClassLoader().getResource("monster.png");

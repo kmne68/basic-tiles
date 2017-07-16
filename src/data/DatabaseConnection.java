@@ -49,14 +49,16 @@ public class DatabaseConnection  { //implements Connection {
     String dbURL = "";  // "jdbc:mysql://localhost:3306/salesdb?useSSL=false";
     String dbUser = "";
     String dbPassword = "";
-    boolean loading = false;
-    
-//    Vector connectionPool = new Vector();
+    boolean loading = false;    
 
     Properties prop = new Properties();
     InputStream input = null;
     
     DataSource dataSource;  // not used yet
+    
+    public DatabaseConnection() {
+        
+    }
 
     // Connection probably isn't needed for now
 /*    public DatabaseConnection() {
@@ -78,7 +80,7 @@ public class DatabaseConnection  { //implements Connection {
         Connection connection = null;
 
         try {
-       //     input = new FileInputStream("C:\\Users\\Keith\\Documents\\NetBeansProjects\\BasicTiles\\src\\config\\properties");
+            
             input = new FileInputStream(".\\src\\config\\properties");
 
             prop.load(input);        
@@ -86,23 +88,22 @@ public class DatabaseConnection  { //implements Connection {
             dbURL = prop.getProperty("dbURL");
             dbUser = prop.getProperty("dbUser");
             dbPassword = prop.getProperty("dbPassword");
-            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);
-            
-            
+            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);   
         } catch (IOException e) {
             e.printStackTrace();
         }
-
             String sql = "";
 
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+        //        Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
                 Statement statement = connection.createStatement();
                 sql = "SELECT * FROM gameobject ORDER BY id";
-                //        sql = "SELECT * FROM tile_types";
+                
                 ResultSet results = statement.executeQuery(sql);
                 results.first();
+                
+                // The following statements are for database connection checking
                 System.out.println("DatabaseConnect");
                 System.out.println("Value in column 4 is " + new String(results.getString(4)));
                 ResultSetMetaData rsmd = results.getMetaData();
@@ -116,17 +117,16 @@ public class DatabaseConnection  { //implements Connection {
                         String columnValue = results.getString(i);
                         System.out.print(rsmd.getColumnName(i) + " " + columnValue + ", ");
                     }
-                    System.out.println("");
-                    
+                    System.out.println("");                    
                 }
             //    connection.close();
             } catch (SQLException e) {
                 System.out.println("SQL Error: " + e + " " + sql);
                 return null;
-            } catch (ClassNotFoundException cnfe) {
+            } /* catch (ClassNotFoundException cnfe) {
                 System.err.println("ClassNotFoundException: " + cnfe);
                 return null;
-            }
+            } */
             
             return connection;
         //    loading = false;
