@@ -6,6 +6,7 @@
 package basictiles;
 
 import data.DatabaseConnection;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,7 +17,7 @@ public class BasicTiles {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {       
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {       
         
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.databaseConnect();

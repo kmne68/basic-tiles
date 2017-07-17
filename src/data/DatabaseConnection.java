@@ -5,7 +5,9 @@
  */
 package data;
 
+import basictiles.Entity;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -42,22 +44,24 @@ import javax.sql.DataSource;
  *
  * @author Keith
  */
-public class DatabaseConnection  { //implements Connection {
-    
+public class DatabaseConnection { //implements Connection {
+
+    private java.sql.Connection connection = null;
+    private ResultSet rs;
     private DataSource datasource;
 
     String dbURL = "";  // "jdbc:mysql://localhost:3306/salesdb?useSSL=false";
     String dbUser = "";
     String dbPassword = "";
-    boolean loading = false;    
+    boolean loading = false;
 
     Properties prop = new Properties();
     InputStream input = null;
-    
+
     DataSource dataSource;  // not used yet
-    
+
     public DatabaseConnection() {
-        
+
     }
 
     // Connection probably isn't needed for now
@@ -73,77 +77,124 @@ public class DatabaseConnection  { //implements Connection {
         this.dbPassword = password;
         initialize();        
     }
-*/    
-    
+     */
     public Connection databaseConnect() {
-        
-        Connection connection = null;
 
+        //    Connection connection = null;
         try {
-            
             input = new FileInputStream(".\\src\\config\\properties");
 
-            prop.load(input);        
+            prop.load(input);
 
             dbURL = prop.getProperty("dbURL");
             dbUser = prop.getProperty("dbUser");
             dbPassword = prop.getProperty("dbPassword");
-            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);   
+            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);
         } catch (IOException e) {
             e.printStackTrace();
         }
-            String sql = "";
+        String sql = "";
 
-            try {
-        //        Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
-                Statement statement = connection.createStatement();
-                sql = "SELECT * FROM gameobject ORDER BY id";
-                
-                ResultSet results = statement.executeQuery(sql);
-                results.first();
-                
-                // The following statements are for database connection checking
-                System.out.println("DatabaseConnect");
-                System.out.println("Value in column 4 is " + new String(results.getString(4)));
-                ResultSetMetaData rsmd = results.getMetaData();
-                int columns = rsmd.getColumnCount();
-                System.out.println("Columns in gameobject table: " + columns + "\n");
-                while (results.next()) {
-                    for (int i = 1; i <= columns; i++) {
-                        if (i >= 1) {
-                            //System.out.print(", ");
-                        }
-                        String columnValue = results.getString(i);
-                        System.out.print(rsmd.getColumnName(i) + " " + columnValue + ", ");
+        try {
+            //        Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            Statement statement = connection.createStatement();
+            sql = "SELECT * FROM gameobject ORDER BY id";
+
+            ResultSet results = statement.executeQuery(sql);
+            results.first();
+
+            // The following statements are for database connection checking
+            System.out.println("DatabaseConnect");
+            System.out.println("Value in column 4 is " + new String(results.getString(4)));
+            ResultSetMetaData rsmd = results.getMetaData();
+            int columns = rsmd.getColumnCount();
+            System.out.println("Columns in gameobject table: " + columns + "\n");
+            while (results.next()) {
+                for (int i = 1; i <= columns; i++) {
+                    if (i >= 1) {
+                        //System.out.print(", ");
                     }
-                    System.out.println("");                    
+                    String columnValue = results.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + " " + columnValue + ", ");
                 }
+                System.out.println("");
+            }
             //    connection.close();
-            } catch (SQLException e) {
-                System.out.println("SQL Error: " + e + " " + sql);
-                return null;
-            } /* catch (ClassNotFoundException cnfe) {
+        } catch (SQLException e) {
+            System.out.println("SQL Error: " + e + " " + sql);
+            return null;
+        }
+        /* catch (ClassNotFoundException cnfe) {
                 System.err.println("ClassNotFoundException: " + cnfe);
                 return null;
             } */
-            
-            return connection;
+
+        return connection;
         //    loading = false;
-            
+
+    }
+
+    public void addEntity() throws SQLException, ClassNotFoundException {
+
+        try {
+            input = new FileInputStream(".\\src\\config\\properties");
+
+            prop.load(input);
+
+            dbURL = prop.getProperty("dbURL");
+            dbUser = prop.getProperty("dbUser");
+            dbPassword = prop.getProperty("dbPassword");
+            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    
-    
-    
+
+        try {
+            input = new FileInputStream(".\\src\\config\\properties");
+
+            prop.load(input);
+
+            dbURL = prop.getProperty("dbURL");
+            dbUser = prop.getProperty("dbUser");
+            dbPassword = prop.getProperty("dbPassword");
+            System.out.println("props: " + dbURL + ", " + dbUser + ", " + dbPassword);
+
+            //Class.forName("com.ms.jdbc.odbc.JdbcOdbcDriver");
+            //String url = "jdbc:odbc:JDBCdsn";
+            connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery("SELECT id, objectType,  objectName from gameobject");
+            while (rs.next()) {
+                //Column names: 
+                System.out.println(rs.getInt("id") + " " + rs.getString("objectType") + " " + rs.getString("objectName"));
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            connection = null;
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found.");
+        } catch (SQLException ex) {
+            throw ex;
+        } catch (IOException ex) {
+            System.out.println("Unable to read file.");
+        }
+//        catch (ClassNotFoundException classNotFoundEx)
+//        {
+//            throw classNotFoundEx;
+//        }
+    }
+}
 
 /*
     private void initialize() {
         
         initializeConnectionPool();
     }
-*/    
+ */
 
-    /*
+ /*
     private void initializeConnectionPool() {
         
         while(!checkConnectionAvailability()) {
@@ -152,9 +203,8 @@ public class DatabaseConnection  { //implements Connection {
         }
         System.out.println("No connections are avaialble. Pool is full.");
     }
-*/
-    
-/*    private synchronized boolean checkConnectionAvailability() {
+ */
+ /*    private synchronized boolean checkConnectionAvailability() {
         
         final int MAX_POOL_SIZE = 5;
         
@@ -163,8 +213,8 @@ public class DatabaseConnection  { //implements Connection {
         }
         return true;
     }
-*/    
-/*    
+ */
+ /*    
     public synchronized Connection getConnectionFromPool() {
         
         Connection connection = null;
@@ -175,16 +225,15 @@ public class DatabaseConnection  { //implements Connection {
         }
         return connection;            
     }
-*/    
- 
-/*    
+ */
+ /*    
     public synchronized void returnConnectionToPool(Connection connection) {
         
         connectionPool.addElement(connection);
     }
-*/
+ */
 
-/*
+ /*
     @Override
     public Statement createStatement() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -454,5 +503,5 @@ public class DatabaseConnection  { //implements Connection {
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-*/
-}
+ */
+// }

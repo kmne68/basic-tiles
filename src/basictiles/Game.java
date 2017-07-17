@@ -55,7 +55,7 @@ public class Game extends Canvas implements KeyListener {
         monsterSprite = spriteLoader("monster");
         playerSprite = spriteLoader("sprite");
         
-        databaseConnection.databaseConnect();
+   //     databaseConnection.databaseConnect();
         System.out.println("From Game() after databaseConnection.");
         // load monster sprite
 /*      try {

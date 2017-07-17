@@ -5,8 +5,10 @@
  */
 package basictiles;
 
+import data.DatabaseConnection;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,6 +18,8 @@ import java.awt.Image;
  * Floating point numbers make for smooth movement on the grid
  */
 public class Entity {
+    
+    private DatabaseConnection databaseConnection = new DatabaseConnection();
     
     private float playerX;
     private float playerY;
@@ -94,30 +98,37 @@ public class Entity {
     }
     
     
-        public boolean checkForObject(float nX, float ny) {
+        public boolean checkForObject(float nX, float ny) { //throws SQLException, ClassNotFoundException {
         
     //    if(map.hasObject(nX - playerSize, ny - playerSize)) {
         if(map.hasObject(this.playerX - playerSize, this.playerY - playerSize) == 2) {
             
    //         map.updateMap();
+     //       databaseConnection.addEntity();
             map.updateMap(this.playerX - playerSize, this.playerY - playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny - playerSize)) {
         if(map.hasObject(this.playerX + playerSize , this.playerY - playerSize) == 2) {
     //        map.updateMap();
+    
+      //      databaseConnection.addEntity();
             map.updateMap(this.playerX + playerSize, this.playerY - playerSize);
             return true;
         }
    //     if(map.hasObject(nX - playerSize , ny + playerSize)) {
         if(map.hasObject(this.playerX - playerSize, this.playerY + playerSize) == 2) {
     //        map.updateMap();
+    
+      //      databaseConnection.addEntity();
             map.updateMap(this.playerX - playerSize, this.playerY + playerSize);
             return true;
         }
     //    if(map.hasObject(nX + playerSize, ny + playerSize)) {
         if(map.hasObject(this.playerX + playerSize, this.playerY + playerSize) == 2) {
     //        map.updateMap();
+    
+        //    databaseConnection.addEntity();
             map.updateMap(this.playerX + playerSize, this.playerY + playerSize);
             return true;
         }
