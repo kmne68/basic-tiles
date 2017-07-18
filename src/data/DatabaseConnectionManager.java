@@ -44,11 +44,13 @@ import javax.sql.DataSource;
  *
  * @author Keith
  */
-public class DatabaseConnection { //implements Connection {
+public class DatabaseConnectionManager { //implements Connection {
 
     private java.sql.Connection connection = null;
     private ResultSet rs;
     private DataSource datasource;
+    
+    Vector connectionPool = new Vector();
 
     String dbURL = "";  // "jdbc:mysql://localhost:3306/salesdb?useSSL=false";
     String dbUser = "";
@@ -60,27 +62,71 @@ public class DatabaseConnection { //implements Connection {
 
     DataSource dataSource;  // not used yet
 
-    public DatabaseConnection() {
-
-    }
-
-    // Connection probably isn't needed for now
-/*    public DatabaseConnection() {
+    // Impleent connection pool in anticipation of threads
+    public DatabaseConnectionManager() {
         initialize();
     }
     
     
-    public DatabaseConnection(String dbName, String url, String user, String password) {
+    public DatabaseConnectionManager(String dbName, String url, String user, String password) {
         
         this.dbURL = url;
         this.dbUser = user;
         this.dbPassword = password;
-        initialize();        
+        initialize();
     }
-     */
+     
+    
+    
+    private void initialize() {
+        
+        initializeConnectionPool();
+    }
+    
+    
+    private void initializeConnectionPool() {
+        
+        while(!checkConnectionAvailability()) {
+            System.out.println("Connections are available, connecting...");
+            connectionPool.addElement(databaseConnect());
+        }
+        System.out.println("No connections are avaialble. Pool is full.");
+    }
+
+    private synchronized boolean checkConnectionAvailability() {
+        
+        final int MAX_POOL_SIZE = 5;
+        
+        if(connectionPool.size() < 5) {
+            return false;
+        }
+        return true;
+    }
+    
+ 
+    public synchronized Connection getConnectionFromPool() {
+        
+        Connection connection = null;
+        
+        if(connectionPool.size() > 0) {
+            connection = (Connection) connectionPool.firstElement();
+            connectionPool.removeElementAt(0);
+        }
+        return connection;            
+    }
+    
+   
+    public synchronized void returnConnectionToPool(Connection connection) {
+        
+        connectionPool.addElement(connection);
+    }
+
+    
+    
     public Connection databaseConnect() {
 
-        //    Connection connection = null;
+        Connection connection = null;
+        
         try {
             input = new FileInputStream(".\\src\\config\\properties");
 
@@ -96,8 +142,22 @@ public class DatabaseConnection { //implements Connection {
         String sql = "";
 
         try {
-            //        Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(dbURL, dbUser, dbPassword);
+            System.out.println("Connection: " + connection);
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e);
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.err.println("ClassNotFoundException: " + e);
+            return null;
+        }
+        
+        return connection;
+    }
+    
+    
+    /* Satements related to initial connection method
             Statement statement = connection.createStatement();
             sql = "SELECT * FROM gameobject ORDER BY id";
 
@@ -124,16 +184,16 @@ public class DatabaseConnection { //implements Connection {
         } catch (SQLException e) {
             System.out.println("SQL Error: " + e + " " + sql);
             return null;
-        }
+        } */
         /* catch (ClassNotFoundException cnfe) {
                 System.err.println("ClassNotFoundException: " + cnfe);
                 return null;
             } */
 
-        return connection;
+    //    return connection;
         //    loading = false;
 
-    }
+   // }
 
     public void addEntity() throws SQLException, ClassNotFoundException {
 
@@ -187,51 +247,8 @@ public class DatabaseConnection { //implements Connection {
     }
 }
 
-/*
-    private void initialize() {
-        
-        initializeConnectionPool();
-    }
- */
 
- /*
-    private void initializeConnectionPool() {
-        
-        while(!checkConnectionAvailability()) {
-            System.out.println("Connections are available, connecting...");
-            connectionPool.addElement(databaseConnect());
-        }
-        System.out.println("No connections are avaialble. Pool is full.");
-    }
- */
- /*    private synchronized boolean checkConnectionAvailability() {
-        
-        final int MAX_POOL_SIZE = 5;
-        
-        if(connectionPool.size() < 5) {
-            return false;
-        }
-        return true;
-    }
- */
- /*    
-    public synchronized Connection getConnectionFromPool() {
-        
-        Connection connection = null;
-        
-        if(connectionPool.size() > 0) {
-            connection = (Connection) connectionPool.firstElement();
-            connectionPool.removeElementAt(0);
-        }
-        return connection;            
-    }
- */
- /*    
-    public synchronized void returnConnectionToPool(Connection connection) {
-        
-        connectionPool.addElement(connection);
-    }
- */
+
 
  /*
     @Override

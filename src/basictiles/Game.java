@@ -5,7 +5,7 @@
  */
 package basictiles;
 
-import data.DatabaseConnection;
+import data.DatabaseConnectionManager;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
@@ -29,7 +29,7 @@ public class Game extends Canvas implements KeyListener {
     /**
      * Simple tile-based collision detection
      */
-    private DatabaseConnection databaseConnection = new DatabaseConnection();
+    private DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager();
     
     private Image sprite;
     private Image playerSprite;

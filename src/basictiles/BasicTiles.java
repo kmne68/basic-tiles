@@ -5,7 +5,7 @@
  */
 package basictiles;
 
-import data.DatabaseConnection;
+import data.DatabaseConnectionManager;
 import java.sql.SQLException;
 
 /**
@@ -19,7 +19,7 @@ public class BasicTiles {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {       
         
-        DatabaseConnection databaseConnection = new DatabaseConnection();
+        DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager();
         databaseConnection.databaseConnect();
         
         Map map = new Map(databaseConnection);

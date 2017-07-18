@@ -5,7 +5,7 @@
  */
 package basictiles;
 
-import data.DatabaseConnection;
+import data.DatabaseConnectionManager;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.sql.SQLException;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
  */
 public class Entity {
     
-    private DatabaseConnection databaseConnection = new DatabaseConnection();
+    private DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager();
     
     private float playerX;
     private float playerY;

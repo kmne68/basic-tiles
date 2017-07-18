@@ -5,7 +5,7 @@
  */
 package basictiles;
 
-import data.DatabaseConnection;
+import data.DatabaseConnectionManager;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.sql.Connection;
@@ -28,7 +28,7 @@ import java.util.Random;
  */
 public class Map {
     
-    private DatabaseConnection connection; // = new DatabaseConnection();
+    private DatabaseConnectionManager connection; // = new DatabaseConnectionManager();
 
     private static final int CLEAR = 0;
     private static final int BLOCKED = 1;
@@ -45,7 +45,7 @@ public class Map {
 //    Color color = new Color(object.randomRed, object.randomGreen, object.randomBlue);
     private int[][] mapData = new int[MAP_WIDTH][MAP_HEIGHT];
 
-    public Map(DatabaseConnection connection) {
+    public Map(DatabaseConnectionManager connection) {
         
         this.connection = connection;
     
@@ -203,7 +203,7 @@ public class Map {
         // statusMessageLabel.setText("");
         String sql = "";
         try {
-         //   connection = new DatabaseConnection(); //DriverManager.getConnection(dbURL, dbUser, dbPwd);
+         //   connection = new DatabaseConnectionManager(); //DriverManager.getConnection(dbURL, dbUser, dbPwd);
          //   Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dragon?useSSL=false", "", "");
             Statement s = connection.createStatement();
             sql = "SELECT * FROM gameObject ORDER BY id";
