@@ -18,6 +18,13 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -30,6 +37,7 @@ public class Game extends Canvas implements KeyListener {
      * Simple tile-based collision detection
      */
     private DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager();
+    
     
     private Image sprite;
     private Image playerSprite;
@@ -55,7 +63,27 @@ public class Game extends Canvas implements KeyListener {
         monsterSprite = spriteLoader("monster");
         playerSprite = spriteLoader("sprite");
         
-   //     databaseConnection.databaseConnect();
+        //     databaseConnection.databaseConnect();
+
+        try {
+            Connection con = databaseConnection.getConnectionFromPool();
+            String query = "Select * from gameobject where id = 1;";        
+            Statement stmt = con.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int numberOfColumns = rsmd.getColumnCount();
+            while (resultSet.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    if (i > 1) System.out.print(",  ");
+           String columnValue = resultSet.getString(i);
+           System.out.print("*********** TEST ************ " + columnValue + " " + rsmd.getColumnName(i));
+       }
+       System.out.println("");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
         System.out.println("From Game() after databaseConnection.");
         // load monster sprite
 /*      try {

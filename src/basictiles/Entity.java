@@ -151,9 +151,4 @@ public class Entity {
         g.rotate(-playerAngle, xPaint, yPaint);
     }
     
-    
-
-
-    
-
 }
