@@ -71,3 +71,6 @@ void stashObject()          // remove from map, place in inventory
 Need a Map.update() fxn that is called by entity objects that alter the map.
 Need an Entity.hasConsequences() method that returns the id of a consequence if an object has consequences for the player
 Has object needs to return an int--the objectID
+
+Implement prepared statements
+Implement threads
