@@ -60,8 +60,8 @@ public class Game extends Canvas implements KeyListener {
     
     public Game(Map map) {
         this.map = map;
-        monsterSprite = spriteLoader("monster");
-        playerSprite = spriteLoader("sprite");
+        monsterSprite = spriteLoader("assets/monster");
+        playerSprite = spriteLoader("assets/sprite");
         
         //     databaseConnection.databaseConnect();
 

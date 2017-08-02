@@ -7,6 +7,8 @@ package basictiles;
 
 import data.DatabaseConnectionManager;
 import java.sql.SQLException;
+import threadmanagement.ThreadPool;
+import threadmanagement.ThreadPoolTest;
 
 /**
  *
@@ -25,8 +27,9 @@ public class BasicTiles {
         Map map = new Map(databaseConnection);
         //Object object = new Object(map);
         
+        ThreadPoolTest tpt = new ThreadPoolTest(8, 4);
         
         new Game(map);
+        
     }
-    
 }
