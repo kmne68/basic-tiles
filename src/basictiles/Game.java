@@ -62,8 +62,6 @@ public class Game extends Canvas implements KeyListener {
         this.map = map;
         monsterSprite = spriteLoader("assets/monster");
         playerSprite = spriteLoader("assets/sprite");
-        
-        //     databaseConnection.databaseConnect();
 
         try {
             Connection con = databaseConnection.getConnectionFromPool();
@@ -85,33 +83,6 @@ public class Game extends Canvas implements KeyListener {
         }
    
         System.out.println("From Game() after databaseConnection.");
-        // load monster sprite
-/*      try {
-            URL url = Thread.currentThread().getContextClassLoader().getResource("monster.png");
-            if(url == null) {
-                System.err.println("Unable to find sprite.");
-                System.exit(0);
-            }
-            monsterSprite = ImageIO.read(url);
-            System.out.println("monster loaded" + url.toString());
-        } catch (IOException e) {
-            System.err.println("Unable to load sprite");
-            System.exit(0);
-        }
-        
-        // load player sprite
-        try {
-            URL url = Thread.currentThread().getContextClassLoader().getResource("sprite.png");
-            if(url == null) {
-                System.err.println("Unable to find sprite.");
-                System.exit(0);
-            }
-            playerSprite = ImageIO.read(url);
-        } catch (IOException e) {
-            System.err.println("Unable to load sprite");
-            System.exit(0);
-        }
-    */
     
         // Create the frame that holds the game
         Frame frame = new Frame("Tile Map");
@@ -140,7 +111,6 @@ public class Game extends Canvas implements KeyListener {
         bufferStrategy = getBufferStrategy();
         
         // Add game objects
-     //   map = new Map();
         monster = new MonsterEntity(monsterSprite, map, 1.5f, 1.5f);
         player = new PlayerEntity(playerSprite, map, 5f, 5f);
         
@@ -224,15 +194,12 @@ public class Game extends Canvas implements KeyListener {
             dy += 1;
         }
         
-        //System.out.println("delta = " + delta + ", " + dx + ", " + dy);
         if((dx != 0) || (dy != 0)) {
             
-        //    boolean object = false;
         //  if player.move returns true, check also if an object is detected  
             if (player.move(dx * delta * 0.003f, dy * delta * 0.003f) == true)
             {
                 if(player.checkForObject(dx * delta * 0.003f, dy * delta * 0.003f))
-        //        if(map.hasObject(dx * delta * 0.003f, dy * delta * 0.003f))
                 {
                     
                     System.out.println("Object = true" + ", " + (dx * 0.003f) + ", " + (dy * 0.003f));
@@ -242,7 +209,6 @@ public class Game extends Canvas implements KeyListener {
                     System.out.println("Object = false, x = " + (dx * 0.003f) + ", " + (dy * 0.003f));
                 }
             }
-        //    System.out.println("checkForObject from Game.logic = " + object);
         }
     }
     
