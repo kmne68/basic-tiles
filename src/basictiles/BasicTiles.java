@@ -5,7 +5,10 @@
  */
 package basictiles;
 
+import config.FullScreenTest;
 import data.DatabaseConnectionManager;
+import java.awt.DisplayMode;
+import java.awt.Graphics;
 import java.sql.SQLException;
 import threadmanagement.ThreadPool;
 import threadmanagement.ThreadPoolTest;
@@ -19,7 +22,10 @@ public class BasicTiles {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {       
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {    
+        
+        FullScreenTest fst = new FullScreenTest(800, 600, 16);
+        fst.run();
         
         DatabaseConnectionManager databaseConnection = new DatabaseConnectionManager();
         databaseConnection.databaseConnect();
